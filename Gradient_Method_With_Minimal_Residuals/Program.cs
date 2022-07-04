@@ -35,13 +35,39 @@ namespace Gradient_Method_With_Minimal_Residuals
             return Matrix_A;
         }//пользовательская
 
-        static int[,] GetDefaultMatrix_A()
+        static int[,] GetDefaultMatrix_A(int count)
         {
-            int[,] Matrix_A =
+            int[,] Matrix_A = null;
+            switch (count)
             {
-                { 33, 1},
-                { 1, 11}
-            };
+                case 1:
+                    int[,] Matrix_1 =
+                    {
+                        { 33, 1},
+                        { 1, 11}
+                    };
+                    Matrix_A = Matrix_1;
+                    break;
+                case 2:
+                    int[,] Matrix_2 =
+                    {
+                        { 10, 11},
+                        { 10, 11}
+                    };
+                    Matrix_A = Matrix_2;
+                    break;
+                case 3:
+                    int[,] Matrix_3 =
+                    {
+                        { 10, 11, 12},
+                        { 11, 11, 12},
+                        { 12, 12, 12}
+                    };
+                    Matrix_A = Matrix_3;
+                    break;
+                default:
+                    break;
+            }
             return Matrix_A;
         }//стандартная
 
@@ -153,109 +179,114 @@ namespace Gradient_Method_With_Minimal_Residuals
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Начальные данные:\n");
+            while (true)
+            {
+                Console.WriteLine("Начальные данные:\n");
 
 //===========================================================================================// Создать матрицу А
 
-            Console.WriteLine("Матрица A:");
-            int[,] Matrix_A = GetUserMatrix_A(); // Возвращает введённую пользователем матрицу А
+                Console.WriteLine("Матрица A:");
+                //int[,] Matrix_A = GetUserMatrix_A(); // Возвращает введённую пользователем матрицу А
 
-            //int[,] Matrix_A = GetRandomMatrix_A(); // Возвращает рандомную матрицу А
+                //int[,] Matrix_A = GetRandomMatrix_A(); // Возвращает рандомную матрицу А
 
-            //int[,] Matrix_A = GetDefaultMatrix_A(); // Возвращает стандартную матрицу А
+                int[,] Matrix_A = GetDefaultMatrix_A(1); // Возвращает стандартную матрицу А
 
-            PrintMatrix(Matrix_A); // Вывести матрицу А на экран
+                PrintMatrix(Matrix_A); // Вывести матрицу А на экран
 
 //===========================================================================================// Создать вектор В
 
-            Console.WriteLine("Вектор B:");
-            
-            //int[] Vector_B = GetUserVector_B(); // Возвращает введённый пользователем вектор В
+                Console.WriteLine("Вектор B:");
 
-            //int[] Vector_B = GetRandomVector_B(); // Возвращает рандомный вектор В
+                //int[] Vector_B = GetUserVector_B(); // Возвращает введённый пользователем вектор В
 
-            int[] Vector_B = {34,12}; // Создаёт стандартный вектор В
+                //int[] Vector_B = GetRandomVector_B(); // Возвращает рандомный вектор В
 
-            PrintVector(Vector_B); // Вывести вектор В на экран
+                int[] Vector_B = { 34, 12 }; // Создаёт стандартный вектор В
+
+                PrintVector(Vector_B); // Вывести вектор В на экран
 
 //===========================================================================================// Создать вектор X
 
-            Console.WriteLine("Вектор X:");
-            //double[] Vector_X = GetRandomVector_X(); // Возвращает рандомный вектор X
+                Console.WriteLine("Вектор X:");
+                //double[] Vector_X = GetRandomVector_X(); // Возвращает рандомный вектор X
 
-            //double[] Vector_X = GetRandomVector_X(); // Возвращает Возвращает введённый пользователем вектор X
+                //double[] Vector_X = GetRandomVector_X(); // Возвращает Возвращает введённый пользователем вектор X
 
-            double[] Vector_X = { 1, 1.1 }; // Задали значения X
+                double[] Vector_X = { 1, 1.1 }; // Задали значения X
 
-            PrintVector(Vector_X); // Вывести вектор X на экран
+                PrintVector(Vector_X); // Вывести вектор X на экран 
 
 //===========================================================================================// Основная программа
 
-            double Old_X0 = 0;
-            double Old_X1 = 0;
-            bool flag = false;
-            int count = 0;
-            while (count < 100)
-            {
-                Console.WriteLine("//===========================================================================//");
-                Console.WriteLine("//=============================== Шаг - {0} ===================================//",count);
-                Console.WriteLine("//===========================================================================//\n");
-
-                Console.WriteLine("X:\n  Х1 = {0,5:0.000}\n  X2 = {1,5:0.000}\n", Vector_X[0], Vector_X[1]);
-
-                double[] AX = MatrixOnVector(Matrix_A, Vector_X);// Считаем AX
-                Console.WriteLine("AX:");
-                PrintVector(AX);
-
-                double[] R = Vector_Subtraction_Vector(Vector_B, AX);// Считаем R
-                Console.WriteLine("R:");
-                PrintVector(R);
-
-                double[] AR = MatrixOnVector(Matrix_A, R);// Считаем AR
-                Console.WriteLine("AR:");
-                PrintVector(AR);
-
-                double AR_R = Dot_Product(AR, R);// Считаем AR_R
-                Console.WriteLine("(AR,R):\n{0,7:0.00}\n", AR_R);
-
-                double AR_AR = Dot_Product(AR, AR);// Считаем AR_AR
-                Console.WriteLine("(AR,AR):\n{0,7:0.00}\n", AR_AR);
-
-                double alpha = AR_R / AR_AR;// Считаем 
-                Console.WriteLine("alpha:\n{0,8:0.0000}\n", alpha);
-
-                Old_X0 = Vector_X[0];// Сохраняем старые X
-                Old_X1 = Vector_X[1];
-                Console.WriteLine("Старые:\nХ1 = {0,5:0.000}\nX2 = {1,5:0.000}\n", Old_X0, Old_X1);
-
-                Vector_X[0] = (Vector_X[0] + (alpha * R[0]));// Считаем новые X
-                Vector_X[1] = (Vector_X[1] + (alpha * R[1]));
-                Console.WriteLine("Новые:\nХ1 = {0,5:0.000}\nX2 = {1,5:0.000}\n", Vector_X[0], Vector_X[1]);
-
-                double[] Eps_arr = new double[2];
-
-                Eps_arr[0] = Math.Abs(Old_X0 - Vector_X[0]);
-                Console.WriteLine("Эпсилон_1: {0,6:0.0000}", Eps_arr[0]);
-                Eps_arr[1] = Math.Abs(Old_X1 - Vector_X[1]);
-                Console.WriteLine("Эпсилон_2: {0,6:0.0000}", Eps_arr[1]);
-
-                double e = Math.Max(Eps_arr[0], Eps_arr[1]);// Считаем Епсилон
-                Console.WriteLine("Эпсилон max:\n{0,8:0.0000}\n", e);
-
-                count++;
-                if (e < 0.001)// Проверяем подходит ли по точности Епсилон
+                double Old_X0 = 0;
+                double Old_X1 = 0;
+                bool flag = false;
+                int count = 0;
+                while (count < 100)
                 {
-                    flag = true;
-                    break;
+                    Console.WriteLine("//===========================================================================//");
+                    Console.WriteLine("//=============================== Шаг - {0} ===================================//", count);
+                    Console.WriteLine("//===========================================================================//\n");
+
+                    Console.WriteLine("X:\n  Х1 = {0,5:0.000}\n  X2 = {1,5:0.000}\n", Vector_X[0], Vector_X[1]);
+
+                    double[] AX = MatrixOnVector(Matrix_A, Vector_X);// Считаем AX
+                    Console.WriteLine("AX:");
+                    PrintVector(AX);
+
+                    double[] R = Vector_Subtraction_Vector(Vector_B, AX);// Считаем R
+                    Console.WriteLine("R:");
+                    PrintVector(R);
+
+                    double[] AR = MatrixOnVector(Matrix_A, R);// Считаем AR
+                    Console.WriteLine("AR:");
+                    PrintVector(AR);
+
+                    double AR_R = Dot_Product(AR, R);// Считаем AR_R
+                    Console.WriteLine("(AR,R):\n{0,7:0.00}\n", AR_R);
+
+                    double AR_AR = Dot_Product(AR, AR);// Считаем AR_AR
+                    Console.WriteLine("(AR,AR):\n{0,7:0.00}\n", AR_AR);
+
+                    double alpha = AR_R / AR_AR;// Считаем 
+                    Console.WriteLine("alpha:\n{0,8:0.0000}\n", alpha);
+
+                    Old_X0 = Vector_X[0];// Сохраняем старые X
+                    Old_X1 = Vector_X[1];
+                    Console.WriteLine("Старые:\nХ1 = {0,5:0.000}\nX2 = {1,5:0.000}\n", Old_X0, Old_X1);
+
+                    Vector_X[0] = (Vector_X[0] + (alpha * R[0]));// Считаем новые X
+                    Vector_X[1] = (Vector_X[1] + (alpha * R[1]));
+                    Console.WriteLine("Новые:\nХ1 = {0,5:0.000}\nX2 = {1,5:0.000}\n", Vector_X[0], Vector_X[1]);
+
+                    double[] Eps_arr = new double[2];
+
+                    Eps_arr[0] = Math.Abs(Old_X0 - Vector_X[0]);
+                    Console.WriteLine("Эпсилон_1: {0,6:0.0000}", Eps_arr[0]);
+                    Eps_arr[1] = Math.Abs(Old_X1 - Vector_X[1]);
+                    Console.WriteLine("Эпсилон_2: {0,6:0.0000}", Eps_arr[1]);
+
+                    double e = Math.Max(Eps_arr[0], Eps_arr[1]);// Считаем Епсилон
+                    Console.WriteLine("Эпсилон max:\n{0,8:0.0000}\n", e);
+
+                    count++;
+                    if (e < 0.001)// Проверяем подходит ли по точности Епсилон
+                    {
+                        flag = true;
+                        break;
+                    }
                 }
-            }
 
-            if(flag)
-            {
-                Console.WriteLine("Окончательный ответ Х1 = {0,5:0.000}, X2 = {1,5:0.000}", Old_X0, Old_X1);
-            }
+                if (flag)
+                {
+                    Console.WriteLine("Окончательный ответ Х1 = {0,5:0.000}, X2 = {1,5:0.000}", Old_X0, Old_X1);
+                }
 
-            else Console.WriteLine("Программа зациклилась, попробуйте другий значения");
+                else Console.WriteLine("Программа зациклилась, попробуйте другий значения");
+                Console.ReadKey(true);
+
+            }
         }
     }
 }
