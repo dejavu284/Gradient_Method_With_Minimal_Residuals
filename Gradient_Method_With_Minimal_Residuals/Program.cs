@@ -4,44 +4,46 @@ namespace Gradient_Method_With_Minimal_Residuals
 {
     class Program
     {
-        static int[,] GetRandomMatrix_A()
+        static double[,] GetRandomMatrix_A(int size, double start, double end)
         {
-            int[,] Matrix_A = new int[2, 2];
+            double[,] Matrix_A = new double[size, size];
 
             Random r = new Random();
+
+            double between = end - start;
 
             for (int i = 0; i < Matrix_A.GetLength(0); i++)
             {
                 for (int j = 0; j < Matrix_A.GetLength(1); j++)
                 {
-                    Matrix_A[i, j] = r.Next(-35, 35);
+                    Matrix_A[i, j] = start + r.NextDouble() * between;
                 }
             }
             return Matrix_A;
         }//рандомная
 
-        static int[,] GetUserMatrix_A()
-        {
-            int[,] Matrix_A = new int[2, 2];
+        static double[,] GetUserMatrix_A(int size)
+        {   
+            double[,] Matrix_A = new double[size, size];
 
             for (int i = 0; i < Matrix_A.GetLength(0); i++)
             {
                 for (int j = 0; j < Matrix_A.GetLength(1); j++)
                 {
-                    Matrix_A[i, j] = int.Parse(Console.ReadLine());
+                    Matrix_A[i, j] = double.Parse(Console.ReadLine());
                 }
             }
             Console.WriteLine();
             return Matrix_A;
         }//пользовательская
 
-        static int[,] GetDefaultMatrix_A(int count)
+        static double[,] GetDefaultMatrix_A(int count)
         {
-            int[,] Matrix_A = null;
+            double[,] Matrix_A = null;
             switch (count)
             {
                 case 1:
-                    int[,] Matrix_1 =
+                    double[,] Matrix_1 =
                     {
                         { 33, 1},
                         { 1, 11}
@@ -49,7 +51,7 @@ namespace Gradient_Method_With_Minimal_Residuals
                     Matrix_A = Matrix_1;
                     break;
                 case 2:
-                    int[,] Matrix_2 =
+                    double[,] Matrix_2 =
                     {
                         { 10, 11},
                         { 10, 11}
@@ -57,7 +59,7 @@ namespace Gradient_Method_With_Minimal_Residuals
                     Matrix_A = Matrix_2;
                     break;
                 case 3:
-                    int[,] Matrix_3 =
+                    double[,] Matrix_3 =
                     {
                         { 10, 11, 12},
                         { 11, 11, 12},
@@ -71,37 +73,39 @@ namespace Gradient_Method_With_Minimal_Residuals
             return Matrix_A;
         }//стандартная
 
-        static int[] GetRandomVector_B()
+        static double[] GetRandomVector(int size, double start, double end)
         {
-            int[] Vector_B = new int[2];
+            double[] Vector_B = new double[size];
 
             Random r = new Random();
 
+            double between = end - start;
+
             for (int i = 0; i < Vector_B.Length; i++)
             {
-                Vector_B[i] = r.Next(-35, 35);
+                Vector_B[i] = start + r.NextDouble() * between;
             }
             return Vector_B;
         }//рандомный
 
-        static int[] GetUserVector_B()
+        static double[] GetUserVector(int size)
         {
-            int[] Vector_B = new int[2];
+            double[] Vector_B = new double[size];
 
             for (int i = 0; i < Vector_B.Length; i++)
             {
-                Vector_B[i] = int.Parse(Console.ReadLine());
+                Vector_B[i] = double.Parse(Console.ReadLine());
             }
             return Vector_B;
         }//пользовательский
 
-        static void PrintMatrix(int[,] Matrix)
+        static void PrintMatrix<T>(T[,] Matrix)
         {
             for (int i = 0; i < Matrix.GetLength(0); i++)
             {
                 for (int j = 0; j < Matrix.GetLength(1); j++)
                 {
-                    Console.Write("{0,4}",Matrix[i, j]);
+                    Console.Write("{0,7:0.00}", Matrix[i, j]);
                 }
                 Console.WriteLine();
             }
@@ -117,31 +121,7 @@ namespace Gradient_Method_With_Minimal_Residuals
             Console.WriteLine();
         }//вывод вектора
 
-        static double[] GetRandomVector_X()
-        {
-            double[] Vector_X = new double[2];
-
-            Random r = new Random();
-
-            for (int i = 0; i < Vector_X.Length; i++)
-            {
-                Vector_X[i] = r.NextDouble() + 0.2;
-            }
-            return Vector_X;
-        }//рандомный
-
-        static double[] GetUserVector_X()
-        {
-            double[] Vector_X = new double[2];
-
-            for (int i = 0; i < Vector_X.Length; i++)
-            {
-                Vector_X[i] = double.Parse(Console.ReadLine());
-            }
-            return Vector_X;
-        }//пользовательский
-
-        static double[] MatrixOnVector(int[,] Matrix, double[] Vector)
+        static double[] MatrixOnVector(double [,] Matrix, double[] Vector)
         {
             double[] AX = new double[2];
 
@@ -156,7 +136,7 @@ namespace Gradient_Method_With_Minimal_Residuals
             return AX;
         }//матрицу на вектор
 
-        static double[] Vector_Subtraction_Vector(int[] Vector_first, double[] Vector_second)
+        static double[] Vector_Subtraction_Vector(double[] Vector_first, double[] Vector_second)
         {
             double[] R = new double[2];
             R[0] = Vector_first[0] - Vector_second[0];
@@ -183,41 +163,40 @@ namespace Gradient_Method_With_Minimal_Residuals
             {
                 Console.WriteLine("Начальные данные:\n");
 
-//===========================================================================================// Создать матрицу А
+                Console.WriteLine("Выберете количество линейных уравнений в слау:");
+                int size = int.Parse(Console.ReadLine());
+                Console.WriteLine("Ок.\n");
 
                 Console.WriteLine("Матрица A:");
-                //int[,] Matrix_A = GetUserMatrix_A(); // Возвращает введённую пользователем матрицу А
+                //double[,] Matrix_A = GetUserMatrix_A(size); // Возвращает введённую пользователем матрицу А выбранного размера
 
-                //int[,] Matrix_A = GetRandomMatrix_A(); // Возвращает рандомную матрицу А
+                //double[,] Matrix_A = GetRandomMatrix_A(size, 10.2, 20.2); // Возвращает рандомную матрицу А выбранного размера, с диапазоном значений
 
-                int[,] Matrix_A = GetDefaultMatrix_A(1); // Возвращает стандартную матрицу А
+                double[,] Matrix_A = GetDefaultMatrix_A(1); // Возвращает стандартную матрицу А, есть несколько стандартных матриц, возращает матрицу по номеру
 
                 PrintMatrix(Matrix_A); // Вывести матрицу А на экран
 
-//===========================================================================================// Создать вектор В
 
                 Console.WriteLine("Вектор B:");
 
-                //int[] Vector_B = GetUserVector_B(); // Возвращает введённый пользователем вектор В
+                //double[] Vector_B = GetUserVector(size); // Возвращает введённый пользователем вектор В
 
-                //int[] Vector_B = GetRandomVector_B(); // Возвращает рандомный вектор В
+                //double[] Vector_B = GetRandomVector(size, 10.2, 20.2); // Возвращает рандомный вектор В
 
-                int[] Vector_B = { 34, 12 }; // Создаёт стандартный вектор В
+                double[] Vector_B = { 34, 12 }; // Создаёт стандартный вектор В
 
                 PrintVector(Vector_B); // Вывести вектор В на экран
 
-//===========================================================================================// Создать вектор X
 
                 Console.WriteLine("Вектор X:");
-                //double[] Vector_X = GetRandomVector_X(); // Возвращает рандомный вектор X
+                //double[] Vector_X = GetUserVector(); // Возвращает введённый пользователем вектор X
 
-                //double[] Vector_X = GetRandomVector_X(); // Возвращает Возвращает введённый пользователем вектор X
+                //double[] Vector_X = GetRandomVector(); // Возвращает рандомный вектор X
 
                 double[] Vector_X = { 1, 1.1 }; // Задали значения X
 
                 PrintVector(Vector_X); // Вывести вектор X на экран 
 
-//===========================================================================================// Основная программа
 
                 double Old_X0 = 0;
                 double Old_X1 = 0;
