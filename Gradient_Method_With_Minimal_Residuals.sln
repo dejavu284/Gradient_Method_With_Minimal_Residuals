@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32510.428
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gradient_Method_With_Minimal_Residuals", "Gradient_Method_With_Minimal_Residuals\Gradient_Method_With_Minimal_Residuals.csproj", "{0F47B9BC-B5F7-4499-99D0-DE5D36A79A71}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0F47B9BC-B5F7-4499-99D0-DE5D36A79A71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F47B9BC-B5F7-4499-99D0-DE5D36A79A71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F47B9BC-B5F7-4499-99D0-DE5D36A79A71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F47B9BC-B5F7-4499-99D0-DE5D36A79A71}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A4799E31-3411-4ADC-9769-D79039C64B6A}
+	EndGlobalSection
+EndGlobal

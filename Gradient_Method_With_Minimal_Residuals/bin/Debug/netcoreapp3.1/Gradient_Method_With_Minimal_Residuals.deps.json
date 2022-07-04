@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Gradient_Method_With_Minimal_Residuals/1.0.0": {
+        "runtime": {
+          "Gradient_Method_With_Minimal_Residuals.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Gradient_Method_With_Minimal_Residuals/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
