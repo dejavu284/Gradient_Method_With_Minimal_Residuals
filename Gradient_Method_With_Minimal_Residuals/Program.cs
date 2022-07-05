@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Threading;
 
 namespace Gradient_Method_With_Minimal_Residuals
 {
@@ -32,6 +33,7 @@ namespace Gradient_Method_With_Minimal_Residuals
             {
                 for (int j = 0; j < Matrix_A.GetLength(1); j++)
                 {
+                    Thread.Sleep(200);//заморозка потока, можно убрать.
                     Console.WriteLine("Элемент с индексами: {0}{1}",i,j);
                     Matrix_A[i, j] = double.Parse(Console.ReadLine());
                 }
@@ -196,23 +198,26 @@ namespace Gradient_Method_With_Minimal_Residuals
                     double[] Vector_B = null;
                     double[] Vector_X = null;
                     Console.WriteLine("Начальные данные:\n");
+                    Thread.Sleep(100);//заморозка потока, можно убрать.
 
                     Console.WriteLine("Выберете количество линейных уравнений в СЛАУ:\nДопустимые значения[2,10]");
                     int size = int.Parse(Console.ReadLine());
-                    if(size >=2 && size<=10) Console.WriteLine("Ок.\n");
+                    Thread.Sleep(100);//заморозка потока, можно убрать.
+                    if (size >= 2 && size <= 10) Console.WriteLine("Ок.\n");
                     else
                     {
                         Console.WriteLine("Недопустимое значение, начни сначала...");
                         continue;
                     }
 
-
+                    Thread.Sleep(300);//заморозка потока, можно убрать.
                     Console.WriteLine("Матрица A:");
-
+                    Thread.Sleep(300);//заморозка потока, можно убрать.
                     bool flag1 = true;
                     while (flag1)
                     {
                         Console.WriteLine("Выберите способ создания матрицы А:\n1 - Ввод с клавиатуры\n2 - Создание рандомной матрицы\n3 - Создание матрицы для тестового примера\n");
+                        Thread.Sleep(200);//заморозка потока, можно убрать.
                         Console.Write(": ");
                         int otvet = int.Parse(Console.ReadLine());
                         switch (otvet)
@@ -233,31 +238,35 @@ namespace Gradient_Method_With_Minimal_Residuals
 
                             case 3:
                                 Console.WriteLine("Есть 2 стандартных матрицы А, размерностью 2 и 3.");
+                                Thread.Sleep(200);//заморозка потока, можно убрать.
                                 Console.WriteLine("Будет создана матрица размерностью {0}",size);
                                 if (size == 2 || size == 3) Matrix_A = GetDefaultMatrix_A(size); // Возвращает матрицу А для тестового примера
                                 else
                                 {
-                                    Console.WriteLine("Под такую размерность нет тестовых примеров.");
+                                    Console.WriteLine("\nПод такую размерность нет тестовых примеров.\n");
                                     continue;
                                 }
                                 flag1 = false;
                                 break;
 
                             default:
-                                Console.WriteLine("Введён некоректный символ, попробуй еще раз...");
+                                Console.WriteLine("\nВведён некоректный символ, попробуй еще раз...\n");
                                 break;
                         }
                     }
+                    Thread.Sleep(300);//заморозка потока, можно убрать.
                     Console.WriteLine();
                     PrintMatrix(Matrix_A); // Вывести матрицу А на экран
 
-
+                    Thread.Sleep(400);//заморозка потока, можно убрать.
                     Console.WriteLine("Вектор B:");
+                    Thread.Sleep(100);//заморозка потока, можно убрать.
 
                     bool flag2 = true;
                     while (flag2)
                     {
                         Console.WriteLine("Выберите способ создания вектора B:\n1 - Ввод с клавиатуры\n2 - Создание рандомного вектора\n3 - Создание вектора для тестового примера\n");
+                        Thread.Sleep(100);//заморозка потока, можно убрать.
                         Console.Write(": ");
                         int otvet = int.Parse(Console.ReadLine());
                         switch (otvet)
@@ -278,6 +287,7 @@ namespace Gradient_Method_With_Minimal_Residuals
 
                             case 3:
                                 Console.WriteLine("Есть 2 стандартных вектора B, размерностью 2 и 3.");
+                                Thread.Sleep(200);//заморозка потока, можно убрать.
                                 Console.WriteLine("Будет создан вектор подходящего под СЛАУ размера");
                                 if (size == 2)
                                 {
@@ -289,26 +299,28 @@ namespace Gradient_Method_With_Minimal_Residuals
                                 }
                                 else
                                 {
-                                    Console.WriteLine("Под такую размерность нет тестовых примеров.");
+                                    Console.WriteLine("Под такую размерность нет тестовых примеров.\n");
                                     continue;
                                 }
                                 flag2 = false;
                                 break;
 
                             default:
-                                Console.WriteLine("Введён некоректный символ, попробуй еще раз...");
+                                Console.WriteLine("Введён некоректный символ, попробуй еще раз...\n");
                                 break;
                         }
                     }
-
+                    Console.WriteLine();
+                    Thread.Sleep(300);//заморозка потока, можно убрать.
                     PrintVector(Vector_B); // Вывести вектор В на экран
 
-
+                    Thread.Sleep(300);//заморозка потока, можно убрать.
                     Console.WriteLine("Вектор X:");
                     bool flag3 = true;
                     while (flag3)
                     {
                         Console.WriteLine("Выберите способ создания вектора X:\n1 - Ввод с клавиатуры\n2 - Создание рандомного вектора\n3 - Создание вектора для тестового примера\n");
+                        Thread.Sleep(200);//заморозка потока, можно убрать.
                         Console.Write(": ");
                         int otvet = int.Parse(Console.ReadLine());
                         switch (otvet)
@@ -329,6 +341,7 @@ namespace Gradient_Method_With_Minimal_Residuals
 
                             case 3:
                                 Console.WriteLine("Есть 2 стандартных вектора X, размерностью 2 и 3.");
+                                Thread.Sleep(200);//заморозка потока, можно убрать.
                                 Console.WriteLine("Будет создан вектор подходящего под СЛАУ размера");
                                 if (size == 2)
                                 {
@@ -340,35 +353,44 @@ namespace Gradient_Method_With_Minimal_Residuals
                                 }
                                 else
                                 {
-                                    Console.WriteLine("Под такую размерность нет тестовых примеров.");
+                                    Console.WriteLine("Под такую размерность нет тестовых примеров.\n");
                                     continue;
                                 }
                                 flag3 = false;
                                 break;
 
                             default:
-                                Console.WriteLine("Введён некоректный символ, попробуй еще раз...");
+                                Console.WriteLine("Введён некоректный символ, попробуй еще раз...\n");
                                 break;
                         }
                     }
-
+                    Console.WriteLine();
+                    Thread.Sleep(200);//заморозка потока, можно убрать.
                     PrintVector(Vector_X); // Вывести вектор X на экран 
 
+                    Thread.Sleep(400);//заморозка потока, можно убрать.
                     Console.WriteLine("В итоге начальные данные такие...\n");
-
+                    Thread.Sleep(400);//заморозка потока, можно убрать.
                     Console.WriteLine("Матрица A:");
+                    Thread.Sleep(200);//заморозка потока, можно убрать.
                     PrintMatrix(Matrix_A);
-
+                    Thread.Sleep(400);//заморозка потока, можно убрать.
                     Console.WriteLine("Вектор B:");
+                    Thread.Sleep(200);//заморозка потока, можно убрать.
                     PrintVector(Vector_B);
-
+                    Thread.Sleep(400);//заморозка потока, можно убрать.
                     Console.WriteLine("Вектор X:");
+                    Thread.Sleep(200);//заморозка потока, можно убрать.
                     PrintVector(Vector_X);
+                    Thread.Sleep(400);//заморозка потока, можно убрать.
 
 
                     double[] Old_X = new double[size];
                     bool flag = false;
                     int count = 0;
+                    double alpha;
+                    double e;
+                    Console.WriteLine("Нажмите любую клавишу чтоб продолжить");
                     Console.ReadKey(true);
                     while (count < 100)
                     {
@@ -401,14 +423,13 @@ namespace Gradient_Method_With_Minimal_Residuals
                         double AR_AR = Dot_Product(AR, AR);// Считаем AR_AR
                         Console.WriteLine("(AR,AR):\n{0,7:0.00}\n", AR_AR);
 
-                        double alpha;
-                        if (AR_AR != 0) alpha = AR_R / AR_AR;// Считаем альфа
+                        if (AR_AR != 0 || AR_R != 0) alpha = AR_R / AR_AR;// Считаем альфа
                         else
                         {
                             Console.WriteLine("(AR,AR) = 0, делить на ноль нельзя, попробуйте другие начальные данные...");
                             continue;
                         }
-                        Console.WriteLine("alpha:\n{0,8:0.0000}\n", alpha);
+                        Console.WriteLine("alpha:\n  {0}\n", alpha);
 
                         Console.WriteLine("Старые:");
 
@@ -436,7 +457,7 @@ namespace Gradient_Method_With_Minimal_Residuals
                         }
                         Console.WriteLine();
                         
-                        double e = Eps_arr.Max();// Считаем Епсилон
+                        e = Eps_arr.Max();// Считаем Епсилон
 
                         Console.WriteLine("Эпсилон max:\n{0,8:0.0000}\n", e);
 
@@ -457,9 +478,8 @@ namespace Gradient_Method_With_Minimal_Residuals
                         }
                     }
 
-                    else Console.WriteLine("Программа зациклилась, попробуйте другий значения");
+                    else Console.WriteLine("Программа зациклилась, попробуйте другий значения\n");
                     Console.ReadKey(true);
-
                 }
             }
             catch
